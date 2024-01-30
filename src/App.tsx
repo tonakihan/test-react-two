@@ -1,60 +1,36 @@
-import {useEffect, useState} from 'react';
 import Card, {CardVariant} from './components/Cards';
-import {ITodo, IUser} from './components/types/Types';
-import axios from 'axios';
-import UserItem from './components/UserItem';
-import List from './components/List';
-import TodoItem from './components/TodoItem';
 import EventsExample from './components/EventsExample';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import UsersPage from './page/UsersPage';
+import TodosPage from './page/TodosPage';
+import { NavLink } from 'react-router-dom';
 
-const URL1: string = "https://jsonplaceholder.typicode.com/users";
-const URL2: string = "https://jsonplaceholder.typicode.com/todos?_limit=10";
 
 function App() {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    fetchUsers();
-    fetchTodos();
-  }, [])
-
-  async function fetchUsers() {
-    try {
-      const res = await axios.get<IUser[]>(URL1);
-      setUsers(res.data);
-    } catch (e) {
-      alert(e);
-    }
-  }
-  async function fetchTodos() {
-    try {
-      const res = await axios.get<ITodo[]>(URL2);
-      setTodos(res.data);
-    } catch (e) {
-      alert(e);
-    }
-  }
-
   return (
-    <div>
-      <Card 
-        variant={CardVariant.primary} 
-        height='200px' width='100px' 
-        onClick={() => {alert("БУ!")}}
-      >
-        КОТ
-      </Card>
-      <List 
-        items={users} 
-        renderItem={(user: IUser) => <UserItem key={user.id} user={user}/>}
-      />
-      <List 
-        items={todos} 
-        renderItem={(todo: ITodo) => <TodoItem key={todo.id} todo={todo}/>}
-      />
-      <EventsExample/>
-    </div>
+    <BrowserRouter>
+      <div id="NavBar">
+        <NavLink to={"/users"} style={{padding: "0 10px"}}>Users</NavLink>
+        <NavLink to={"/card"} style={{padding: "0 10px"}}>Card</NavLink>
+        <NavLink to={"/todos"} style={{padding: "0 10px"}}>Todos</NavLink>
+        <NavLink to={"/event"} style={{padding: "0 10px"}}>Event</NavLink>
+      </div>
+      <Routes> 
+        <Route path={'/card'} element={
+          <Card 
+            variant={CardVariant.primary} 
+            height='200px' width='100px' 
+            onClick={() => {alert("БУ!")}}
+          >
+            КОТ
+          </Card>
+        }/>
+        <Route path={'/users'} element={<UsersPage/>}/>
+        <Route path={'/todos'} element={<TodosPage/>}/>
+        <Route path={'/event'} element={<EventsExample/>}/>
+        <Route path={'/'} element={<Navigate to={'/users'}/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
