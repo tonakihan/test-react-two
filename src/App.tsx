@@ -5,6 +5,7 @@ import axios from 'axios';
 import UserItem from './components/UserItem';
 import List from './components/List';
 import TodoItem from './components/TodoItem';
+import EventsExample from './components/EventsExample';
 
 const URL1: string = "https://jsonplaceholder.typicode.com/users";
 const URL2: string = "https://jsonplaceholder.typicode.com/todos?_limit=10";
@@ -52,6 +53,7 @@ function App() {
         items={todos} 
         renderItem={(todo: ITodo) => <TodoItem key={todo.id} todo={todo}/>}
       />
+      <EventsExample/>
     </div>
   );
 }
