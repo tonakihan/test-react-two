@@ -4,6 +4,8 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import UsersPage from './page/UsersPage';
 import TodosPage from './page/TodosPage';
 import { NavLink } from 'react-router-dom';
+import UserItemPage from './page/UserItemPage';
+import TodoItemPage from './page/TodoItemPage';
 
 
 function App() {
@@ -26,7 +28,9 @@ function App() {
           </Card>
         }/>
         <Route path={'/users'} element={<UsersPage/>}/>
+        <Route path={'/users/:id'} element={<UserItemPage/>}/>
         <Route path={'/todos'} element={<TodosPage/>}/>
+        <Route path={'/todos/:id'} element={<TodoItemPage/>}/>
         <Route path={'/event'} element={<EventsExample/>}/>
         <Route path={'/'} element={<Navigate to={'/users'}/>}/>
       </Routes>

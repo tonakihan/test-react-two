@@ -11,7 +11,7 @@ const TodosPage:FC = () => {
 
   useEffect(() => {
     fetchTodos();
-  }, [])
+  })
 
   async function fetchTodos() {
     try {
